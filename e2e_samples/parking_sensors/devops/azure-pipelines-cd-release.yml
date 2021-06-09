@@ -1,9 +1,6 @@
 trigger: none
 
-pr: none
-
-pool:
-  vmImage: 'ubuntu-latest'
+pr: none #will disable PR builds entirely; will not disable CI triggers
 
 resources:
   pipelines:
@@ -13,7 +10,7 @@ resources:
       branches:
       - master
   repositories:
-  - repository: mdwdataops_adfpublish
+  - repository: mdw-dataops
     type: github
     endpoint: mdwdo-park-github
     name: darkanita/mdw-dataops-clone
