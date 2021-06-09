@@ -15,3 +15,23 @@ resources:
     endpoint: mdwdo-park-github
     name: darkanita/mdw-dataops-clone
     ref: adf_publish
+
+# The deployment script sets this as a Pipeline Variable, but you may choose to set it here in the definition
+#
+# variables:
+#   devAdfName: <DEV DATAFACTORY NAME>
+
+stages:
+- stage: deploy_to_dev
+  displayName: 'Deploy to DEV'  # In DEV, excludes publishing to ADF as this is a manual publish step
+  variables:
+  - group: mdwdo-park-release-dev
+  - group: mdwdo-park-release-secrets-dev
+  jobs:
+  - template: templates/jobs/deploy-databricks-job.yml
+    parameters:
+      environmentName: 'DEV'
+  - template: templates/jobs/deploy-azuresqldb-job.yml
+    parameters:
+      environmentName: 'DEV'
+      serviceConnection: 'mdwdo-park-serviceconnection-dev'
