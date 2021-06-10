@@ -53,8 +53,8 @@ def standardize_parking_bay(parkingbay_sdf: DataFrame, load_id, loaded_on):
             col("rd_seg_id").cast("int").alias("rd_seg_id"),
             "the_geom",
             lit(load_id).alias("load_id"),
-            lit(loaded_on).alias("loaded_on")
-            #lit(loaded_on.isoformat()).alias("loaded_on")
+            #lit(loaded_on).alias("loaded_on")
+            lit(loaded_on.isoformat()).alias("loaded_on")
         )
     ).cache()
     # Data Validation
