@@ -74,7 +74,8 @@ def standardize_sensordata(sensordata_sdf: DataFrame, load_id, loaded_on):
             "location",
             "status",
             lit(load_id).alias("load_id"),
-            lit(loaded_on.isoformat()).alias("loaded_on")
+            lit(loaded_on).alias("loaded_on")
+            #lit(loaded_on.isoformat()).alias("loaded_on")
         )
     ).cache()
     # Data Validation
