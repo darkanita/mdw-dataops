@@ -2,12 +2,12 @@
 
 """Main module."""
 
-
+from pyspark.sql.types import TimestampType
 from pyspark.sql import DataFrame
 from pyspark.sql.functions import lit, col, to_timestamp
 from pyspark.sql.types import (
     ArrayType, StructType, StructField, StringType, DoubleType)  # noqa: E501
-
+TimestampType
 
 def get_schema(schema_name):
     if schema_name == 'in_parkingbay_schema':
@@ -53,7 +53,8 @@ def standardize_parking_bay(parkingbay_sdf: DataFrame, load_id, loaded_on):
             col("rd_seg_id").cast("int").alias("rd_seg_id"),
             "the_geom",
             lit(load_id).alias("load_id"),
-            lit(loaded_on.isoformat()).alias("loaded_on")
+            lit(loaded_on.cast(TimestampType)).alias("loaded_on")
+            #lit(loaded_on.isoformat()).alias("loaded_on")
         )
     ).cache()
     # Data Validation
